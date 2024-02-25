@@ -69,6 +69,7 @@
 	padding-top: 40px;
 	padding-bottom: 60px;
 	margin-bottom: 0;
+	background-color: #F8F8FF;
 }
 
 #features hr{
@@ -80,4 +81,28 @@
 
 #features i{
 	color: #1ebba3;
+}
+
+
+#contact{
+	background-color: #3f3f3f;
+	color: #d5d5d5;
+	padding-top: 40px;
+	padding-bottom: 20px;
+}
+
+.footer{
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.footer i{
+	color: #d5d5d5;
+
+}
+
+#contact hr{
+	border-top: solid 2px #d5d5d5;
+	width: 100%;
 }
