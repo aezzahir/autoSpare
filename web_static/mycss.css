@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+
+
+
+.body{
+	font-family: 'Lato', sans-serif;
+	color: #505962;
+	overflow-x: hidden;
+}
+
+
+
+.navbar{
+	font-weight: 700;
+	font-size: 15px;
+	background: rgba(0, 0, 0, 0.6)!important;
+
+}
+.navbar-brand img{
+	height: 30px;
+}
+
+.nav-item{
+	padding-right: 10px;
+
+}
+
+.nav-link{
+	color: white!important;
+}
+
+.nav-link.active, .nav-link:hover{
+	color: #1ebba3!important;
+}
+
+
+#home{
+	background-image: url('images/darkback.jpg');
+	background-repeat:no-repeat;
+	background-size:cover;
+	height: 650px;
+	width: 100%;
+	z-index: -1;
+}
+
+
+#home h1{
+	font-size: 60px;
+	text-shadow: 1px 1px 2px black;
+	padding-bottom: 30px;
+	color:white;
+}
+
+#home h4{
+	font-size: 30px;
+	text-shadow: 1px 1px 2px black;
+	padding-bottom: 30px;
+	color:white;
+}
+
+.caption{
+	width: 100%;
+	position: absolute;
+	top: 200px;
+}
