@@ -52,7 +52,14 @@
     <div id="home" class="text-center">
 		<div class="caption">
 			<h1>Welcome to AutoSpear</h1>
-			<a href="#course" class="btn btn-outline-light btn-lg">Search for a car part</a>
+            <div class="container">
+                <form action="/action_page.php">
+                    <div class="form-group">
+                    <input type="email" class="form-control" id="email" placeholder="Search for car parts..." name="email">
+                    </div>
+                    <button type="submit" class="btn btn-outline-light btn-lg">Search for a car part</button>
+                </form>
+            </div>
 		</div>
 	</div>
     <div id="features" class="jumbotron jumbotron-fluid">
