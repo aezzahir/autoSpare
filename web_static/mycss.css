@@ -82,8 +82,7 @@
 #Available{
 	padding-top: 40px;
 	padding-bottom: 60px;
-	margin-bottom: 0;
-	background-color: #F8F8FF;
+	background-color: white;
 }
 
 #Available hr{
@@ -96,8 +95,6 @@
 #Available h1{
 	text-align: center;
 }
-
-
 #contact{
 	background-color: #3f3f3f;
 	color: #d5d5d5;
