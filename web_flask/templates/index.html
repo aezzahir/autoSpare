@@ -107,7 +107,12 @@
 					<div class="card bg-light mb-3">
 						<div class="card-header"><h5>{{ product.designation }}</h5></div>
 						<div class="card-body">{{ product.description }}</div>
-						<div class="card-footer"><h5>Supplier: </h5>{{ product.supplier.name }}</div>
+						<div class="card-footer">
+							<button data-toggle="collapse" data-target="#demo{{ loop.index }}">Supplier</button>
+							<div id="demo{{ loop.index }}" class="collapse">
+								{{ product.supplier.name }}: {{ product.supplier.address }}
+							</div>
+						</div>
 					</div>
 				</div>
 				{% if loop.index % 3 == 0 %}
@@ -116,6 +121,7 @@
 			{% endfor %} 
 		</div>
 	</div>
+
 
 
 	<!--- Start contact Section -->
