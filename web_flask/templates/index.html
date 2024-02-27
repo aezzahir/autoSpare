@@ -108,7 +108,7 @@
 						<div class="card-header"><h5>{{ product.designation }}</h5></div>
 						<div class="card-body">{{ product.description }}</div>
 						<div class="card-footer">
-							<button data-toggle="collapse" data-target="#demo{{ loop.index }}">Supplier</button>
+							<button data-toggle="collapse" data-target="#demo{{ loop.index }}" class="btn btn-outline-info">Supplier</button>
 							<div id="demo{{ loop.index }}" class="collapse">
 								{{ product.supplier.name }}: {{ product.supplier.address }}
 							</div>
