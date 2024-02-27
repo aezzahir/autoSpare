@@ -15,9 +15,9 @@ def teardown_appcontext(exception):
     """
     storage.close()
 
-
-@app.route("/SPEAR_filters", strict_slashes=False)
-def SPEAR_filters():
+@app.route("/home", strict_slashes=False)
+@app.route("/", strict_slashes=False)
+def home_page():
     """
     displays all products
     """
