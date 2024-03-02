@@ -6,13 +6,14 @@ Contains the class DBStorage
 import models
 from models.base_model import BaseModel, Base
 from models.spear import Spear  # Import the Spear class
+from models.user import User
 from models.supplier import Supplier
 from os import getenv
 import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-classes = {"Spear": Spear, "BaseModel": BaseModel, "Supplier": Supplier}
+classes = {"Spear": Spear, "BaseModel": BaseModel, "Supplier": Supplier, "User": User}
 
 
 class DBStorage:
