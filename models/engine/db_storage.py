@@ -82,3 +82,7 @@ class DBStorage:
         A method to count the number of objects in storage
         """
         return len(self.all(cls))
+    
+    def get_session(self):
+        """Get the current database session"""
+        return self.__session

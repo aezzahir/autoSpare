@@ -117,3 +117,7 @@
 	border-top: solid 2px #d5d5d5;
 	width: 100%;
 }
+
+.alert-container {
+    margin-top: 50px;
+}

@@ -5,7 +5,7 @@ from models.spear import Spear  # Import the Spear class
 from models.supplier import Supplier
 from models.user import User
 from models.forms import RegisterForm
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, flash
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '34d9d93fd27e9261da3cd588'
@@ -38,6 +38,9 @@ def register_page():
         storage.new(user_to_create)
         storage.save()
         return redirect(url_for("home_page"))
+    if form.errors != {}:
+        for err_msg in form.errors.values():
+            flash(f'There was an error with creating a user: {err_msg}', category='danger')
     return render_template('register.html', form=form)
 
 
