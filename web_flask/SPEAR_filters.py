@@ -6,12 +6,14 @@ from models.supplier import Supplier
 from models.user import User
 from models.forms import RegisterForm, LoginForm
 from flask import Flask, render_template, url_for, redirect, flash
-from flask_login import LoginManager, login_user, UserMixin, logout_user
+from flask_login import LoginManager, login_user, UserMixin, logout_user, login_required
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '34d9d93fd27e9261da3cd588'
 login_manager = LoginManager(app)
+login_manager.login_view = "login_page"
+login_manager.login_message_category = "info"
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -36,6 +38,7 @@ def home_page():
     return render_template("index.html")
 
 @app.route("/market", strict_slashes=False)
+@login_required
 def market_page():
     """
     displays all products
@@ -53,7 +56,9 @@ def register_page():
         storage.reload()
         storage.new(user_to_create)
         storage.save()
-        return redirect(url_for("home_page"))
+        login_user(user_to_create)
+        flash("Account created successfuly! You are now logged in", category='success')
+        return redirect(url_for("market_page"))
     if form.errors != {}:
         for err_msg in form.errors.values():
             flash(f'There was an error with creating a user: {err_msg}', category='danger')
