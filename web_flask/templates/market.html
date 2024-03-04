@@ -1,5 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
+	<div class="container text-center">
+        <form action="/action_page.php">
+            <div class="form-group">
+            <input type="email" class="form-control" id="email" placeholder="Search for car parts..." name="email">
+            </div>
+            <button type="submit" class="btn btn-secondary btn-lg">Search for a car part</button>
+        </form>
+    </div>
 	<div class="container" id="Available">
 		<h1>List of Available products</h1>
 		<hr>
