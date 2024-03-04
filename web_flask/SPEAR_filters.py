@@ -6,7 +6,7 @@ from models.supplier import Supplier
 from models.user import User
 from models.forms import RegisterForm, LoginForm
 from flask import Flask, render_template, url_for, redirect, flash
-from flask_login import LoginManager, login_user, UserMixin
+from flask_login import LoginManager, login_user, UserMixin, logout_user
 
 
 app = Flask(__name__)
@@ -76,6 +76,12 @@ def login_page():
 
 
     return render_template('login.html', form=form)
+
+@app.route("/logout", strict_slashes=False)
+def logout_page():
+    logout_user()
+    flash("yo have been log out!", category='info')
+    return redirect(url_for("home_page"))
 
 
 if __name__ == '__main__':
