@@ -4,11 +4,20 @@ from models import storage
 from models.spear import Spear  # Import the Spear class
 from models.supplier import Supplier
 from models.user import User
-from models.forms import RegisterForm
+from models.forms import RegisterForm, LoginForm
 from flask import Flask, render_template, url_for, redirect, flash
+from flask_login import LoginManager, login_user, UserMixin
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '34d9d93fd27e9261da3cd588'
+login_manager = LoginManager(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    storage.reload()
+    session = storage.get_session()
+    return session.query(User).filter_by(id=user_id).first()
 
 
 @app.teardown_appcontext
@@ -22,10 +31,17 @@ def teardown_appcontext(exception):
 @app.route("/", strict_slashes=False)
 def home_page():
     """
+    displays home page
+    """
+    return render_template("index.html")
+
+@app.route("/market", strict_slashes=False)
+def market_page():
+    """
     displays all products
     """
     list_products = storage.all(Spear).values()
-    return render_template("index.html", products=list_products)
+    return render_template("market.html", products=list_products)
 
 @app.route("/register", methods=['GET', 'POST'])
 def register_page():
@@ -42,6 +58,24 @@ def register_page():
         for err_msg in form.errors.values():
             flash(f'There was an error with creating a user: {err_msg}', category='danger')
     return render_template('register.html', form=form)
+
+
+@app.route("/login", methods=['GET', 'POST'])
+def login_page():
+    form = LoginForm()
+    if form.validate_on_submit():
+        storage.reload()
+        session = storage.get_session()
+        attempted_user = session.query(User).filter_by(username=form.username.data).first()
+        if attempted_user and attempted_user.password_hash == form.password.data:
+            login_user(attempted_user)
+            flash("Succes !", category='success')
+            return redirect(url_for("market_page"))
+        else:
+            flash("Username and password are not matched! try again", category='danger')
+
+
+    return render_template('login.html', form=form)
 
 
 if __name__ == '__main__':

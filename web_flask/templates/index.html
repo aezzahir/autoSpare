@@ -38,34 +38,6 @@
 		</div>
 	</div>
 
-
-	<div class="container" id="Available">
-		<h1>List of Available products</h1>
-		<hr>
-		<div class="row">
-			{% for product in products|sort(attribute='designation') %}
-				<div class="col-md-4">
-					<div class="card bg-light mb-3">
-						<div class="card-header"><h5>{{ product.designation }}</h5></div>
-						<div class="card-body">{{ product.description }}</div>
-						<div class="card-footer">
-							<button data-toggle="collapse" data-target="#demo{{ loop.index }}" class="btn btn-outline-info">Supplier</button>
-							<div id="demo{{ loop.index }}" class="collapse">
-								{{ product.supplier.name }}: {{ product.supplier.address }}
-							</div>
-							<button class="btn btn-outline-success">Purchase</button>
-						</div>
-					</div>
-				</div>
-				{% if loop.index % 3 == 0 %}
-					</div><div class="row">
-				{% endif %}
-			{% endfor %} 
-		</div>
-	</div>
-
-
-
 	<!--- Start contact Section -->
 	<div id="contact" class="text-center">
 		<div class="footer">

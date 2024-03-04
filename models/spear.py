@@ -12,4 +12,4 @@ class Spear(BaseModel, Base):
     description = Column(String(128), nullable=False)
     price = Column(Integer, nullable=False)
     supplier_id = Column(String(60), ForeignKey('suppliers.id'))
-    supplier = relationship("Supplier", back_populates="spears")
+    supplier = relationship("Supplier", back_populates="spears", lazy="joined")
