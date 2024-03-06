@@ -44,7 +44,7 @@ def market_page():
     displays all products
     """
     purchase_form = PurchaseItemForm()
-    list_products = storage.all(Spear).values()
+    
     if request.method == "POST":
         storage.reload()
         session = storage.get_session()
@@ -52,7 +52,13 @@ def market_page():
         purchased_item = session.query(Spear).filter_by(id=purchased_item_id).first()
         if purchased_item:
             print(f"The user {current_user.username} purchased {purchased_item.designation}")
-    return render_template("market.html", products=list_products, purchase_form=purchase_form)
+            flash(f"Congratulations {current_user.username} for purchasing {purchased_item.designation}", category='success')
+        # Redirect to avoid re-submitting form data on refresh
+        return redirect(url_for('market_page'))
+
+    if request.method == "GET":
+        list_products = storage.all(Spear).values()
+        return render_template("market.html", products=list_products, purchase_form=purchase_form)
 
 @app.route("/register", methods=['GET', 'POST'])
 def register_page():
