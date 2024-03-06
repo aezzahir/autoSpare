@@ -4,9 +4,9 @@ from models import storage
 from models.spear import Spear  # Import the Spear class
 from models.supplier import Supplier
 from models.user import User
-from models.forms import RegisterForm, LoginForm
-from flask import Flask, render_template, url_for, redirect, flash
-from flask_login import LoginManager, login_user, UserMixin, logout_user, login_required
+from models.forms import RegisterForm, LoginForm, PurchaseItemForm
+from flask import Flask, render_template, url_for, redirect, flash, request
+from flask_login import LoginManager, login_user, UserMixin, logout_user, login_required, current_user
 
 
 app = Flask(__name__)
@@ -37,14 +37,22 @@ def home_page():
     """
     return render_template("index.html")
 
-@app.route("/market", strict_slashes=False)
+@app.route("/market", methods=['GET', 'POST'], strict_slashes=False)
 @login_required
 def market_page():
     """
     displays all products
     """
+    purchase_form = PurchaseItemForm()
     list_products = storage.all(Spear).values()
-    return render_template("market.html", products=list_products)
+    if request.method == "POST":
+        storage.reload()
+        session = storage.get_session()
+        purchased_item_id = request.form.get('purchased_item')
+        purchased_item = session.query(Spear).filter_by(id=purchased_item_id).first()
+        if purchased_item:
+            print(f"The user {current_user.username} purchased {purchased_item.designation}")
+    return render_template("market.html", products=list_products, purchase_form=purchase_form)
 
 @app.route("/register", methods=['GET', 'POST'])
 def register_page():

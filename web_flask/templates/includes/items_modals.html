@@ -1,0 +1,60 @@
+<div class="modal fade" id="myModal-{{ product.supplier.id }}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">{{ product.supplier.name }}</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+            Adress: {{ product.supplier.address }}
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+<div class="modal fade" id="myModal-purchaseconfirm-{{ product.supplier.id }}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">{{ product.designation }}</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+            <form method="POST">
+            {{ purchase_form.hidden_tag() }}
+            <h4 class="text-center">
+                Are you sure you want to reach {{ product.supplier.name }} in order to purchase {{ product.designation }} ?
+            </h4>
+            <br>
+            <h6 class="text-center">
+                By clicking Purchase, you will you will be reached by the supplier.
+            </h6>
+            <br>
+            <input id="purchased_item" name="purchased_item" type="hidden" value="{{product.id}}">
+            {{ purchase_form.submit(class="btn btn-outline-success btn-block") }}
+            </form>
+            
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>

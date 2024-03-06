@@ -74,7 +74,7 @@ form {
 	margin-top: 60px;
 }
 
-#Available{
+#Available, #owned{
 	padding-top: 40px;
 	padding-bottom: 60px;
 	background-color: white;
@@ -88,6 +88,10 @@ form {
 }
 
 #Available h1{
+	text-align: center;
+}
+
+#owned h2{
 	text-align: center;
 }
 #contact{
