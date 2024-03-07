@@ -4,7 +4,7 @@ from models import storage
 from models.spear import Spear  # Import the Spear class
 from models.supplier import Supplier
 from models.user import User
-from models.forms import RegisterForm, LoginForm, PurchaseItemForm
+from models.forms import RegisterForm, LoginForm, PurchaseItemForm, RemoveItemForm
 from flask import Flask, render_template, url_for, redirect, flash, request
 from flask_login import LoginManager, login_user, UserMixin, logout_user, login_required, current_user
 
@@ -41,24 +41,38 @@ def home_page():
 @login_required
 def market_page():
     """
-    displays all products
+    Displays all products and handles purchase requests
     """
     purchase_form = PurchaseItemForm()
+    removing_form = RemoveItemForm()
     
     if request.method == "POST":
-        storage.reload()
-        session = storage.get_session()
+        #purchase logic
         purchased_item_id = request.form.get('purchased_item')
-        purchased_item = session.query(Spear).filter_by(id=purchased_item_id).first()
+        purchased_item = storage.get_session().query(Spear).filter_by(id=purchased_item_id).first()
+        
         if purchased_item:
             print(f"The user {current_user.username} purchased {purchased_item.designation}")
+            current_user.purchased_items.append(purchased_item)
+            storage.save()  # Save the changes to the database
             flash(f"Congratulations {current_user.username} for purchasing {purchased_item.designation}", category='success')
+        #remove logic
+        removed_item_id = request.form.get('removed_item')
+        removed_item = storage.get_session().query(Spear).filter_by(id=removed_item_id).first()
+        if removed_item:
+            print(f"The user {current_user.username} removed {removed_item.designation}")
+            current_user.purchased_items.remove(removed_item)
+            storage.save()  # Save the changes to the database
+            flash(f"Congratulations {current_user.username} for removing {removed_item.designation}", category='success')
+
         # Redirect to avoid re-submitting form data on refresh
         return redirect(url_for('market_page'))
 
     if request.method == "GET":
         list_products = storage.all(Spear).values()
-        return render_template("market.html", products=list_products, purchase_form=purchase_form)
+        purchased_items = current_user.purchased_items
+        return render_template("market.html", products=list_products, purchase_form=purchase_form, purchased_items=purchased_items, removing_form=removing_form)
+
 
 @app.route("/register", methods=['GET', 'POST'])
 def register_page():

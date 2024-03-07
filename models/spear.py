@@ -13,3 +13,5 @@ class Spear(BaseModel, Base):
     price = Column(Integer, nullable=False)
     supplier_id = Column(String(60), ForeignKey('suppliers.id'))
     supplier = relationship("Supplier", back_populates="spears", lazy="joined")
+    buyer_id = Column(String(60), ForeignKey('users.id'))
+

@@ -34,6 +34,18 @@
 		</div>
 		<div class="container col-4", id="owned">
 			<h2>Owned Items</h2>
+			<hr>
+			<div class="row">
+				{% for owned_item in purchased_items %}
+				{% include 'includes/owned_items_modals.html' %}
+					<div class="col-md-6">
+						<div class="card bg-light mb-3">
+							<div class="card-header"><h5>{{ owned_item.designation }}</h5></div>
+							<button class="btn btn-outline-danger" data-toggle="modal" data-target="#Modal-RemovingConfirm-{{ owned_item.id }}">Remove</button>
+						</div>
+					</div>
+				{% endfor %}
+			</div>	
 		</div>
 
 	</div>
